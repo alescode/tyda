@@ -1,8 +1,9 @@
 package se.tyda.androidapp;
 
-import se.tyda.androidapp.TestHttpGet;
-import android.app.Activity;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -12,16 +13,26 @@ public class Tyda extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TextView tv = new TextView(this);
-        tv.setText("Hello, Android 2");
-        setContentView(tv);
         String s = "none";
+        String t = "Here we go:\n";
+        Pattern pattern = Pattern.compile("a id=\"tyda_transR[0-9]+\" href=\"/search/[a-zA-Z_0-9]+");
+        //Vector<String> v = new Vector<String>();
+
         try {
-			s = TestHttpGet.executeHttpGet("http://tyda.se/search?form=1&w=hej&w_lang=&x=0&y=0");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		tv.setText(s);
+            s = TestHttpGet.executeHttpGet("http://tyda.se/search/stämning");
+            Matcher matcher = pattern.matcher(s);
+
+            while (matcher.find()) {
+            	String match = matcher.group();
+                t += match.substring(match.lastIndexOf('/') + 1) + "\n";
+            }
+
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        tv.setText(t);
         setContentView(tv);
         //setContentView(R.layout.main);
     }
