@@ -16,7 +16,7 @@ public class Tyda extends Activity {
         setContentView(tv);
         String s = "none";
         try {
-			s = TestHttpGet.executeHttpGet();
+			s = TestHttpGet.executeHttpGet("http://tyda.se/search?form=1&w=hej&w_lang=&x=0&y=0");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

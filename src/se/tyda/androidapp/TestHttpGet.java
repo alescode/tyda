@@ -11,12 +11,12 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 public class TestHttpGet {
-    public static String executeHttpGet() throws Exception {
+    public static String executeHttpGet(String urlString) throws Exception {
         BufferedReader in = null;
         try {
             HttpClient client = new DefaultHttpClient();
             HttpGet request = new HttpGet();
-            request.setURI(new URI("http://magia.se/test.html"));
+            request.setURI(new URI(urlString));
             HttpResponse response = client.execute(request);
             in = new BufferedReader
             (new InputStreamReader(response.getEntity().getContent()));
